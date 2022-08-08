@@ -1,0 +1,149 @@
+html {
+    box-sizing: border-box;
+    /* margin-left: 80px;
+    margin-right: 80px; */
+    margin-left: 88px;
+    margin-right: 88px;
+    
+}
+
+body{
+    margin: 0px;
+}
+
+p{
+    margin: 0px;
+}
+
+article{
+    width: 30.8%;
+    background-color: #E7E7E7;
+    border-radius: 0px 0px 10px 10px;
+    margin-bottom: 45px;
+    padding-bottom: 20px;
+}
+
+article img{
+    width: 100%;
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image_logo {
+    margin-top: 38px;
+    /* margin-bottom: 13px; */
+    /* max-width: 160px; */
+    /* height: auto; */
+    width: 45px;
+}
+
+.titre_site {
+    font-weight: bold;
+    font-size: 31px;
+    margin: 0px;
+    color: #D15151;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.recherche-primaire{
+    margin-top: 15px;
+    width: 98%;
+    padding-top: 21.5px;
+    padding-bottom: 21.5px;
+    padding-left: 20px;
+    background-color: #EBEBEB;
+    border: 0px;
+    border-radius: 5px;
+}
+
+.recherche-primaire::placeholder{
+    color: #C6C6C6;
+}
+
+#form{
+    display: flex;
+    align-items: center;
+}
+
+.fa-magnifying-glass{
+    margin-left: -50px;
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+#selector{
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #3281F7;
+    border-radius: 5px;
+    color: white;
+    width: 17.99%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#recettes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+
+
+.divTitre{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.divTemps{
+    display: flex;
+}
+
+.pTemps{
+    margin-left: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.divIngredient{
+    display: flex;
+    /* margin-top: 15px; */
+    /* width: 50%; */
+    flex-wrap: wrap;
+}
+
+.pTitreIngredient{
+    font-weight: bold;
+}
+
+.mesIngredients{
+    margin-bottom: 15px;
+    width: 50%;
+    font-size: 11px;
+    padding-right: 10px;
+    /* flex-wrap: wrap; */
+}
+
+.divDescription{
+    display: flex;
+}
+
+.pDescription{
+    width: 50%;
+    font-size: 11px;
+    padding-left: 10px;
+}
+
+.details{
+    padding-left: 20px;
+    padding-right: 20px;
+}
