@@ -21,18 +21,53 @@
             <img class="image_logo" src="./assets/logo/Logo.png" alt="Logo du site: les petits plats" />
             <p class="titre_site">Les petits plats</p>
         </div>
-        <form id="form">
+        <form id="formPrimaire">
           <input class="recherche-primaire" type="text" placeholder="Rechercher une recette" name="firstSearch"/>
           <i class="fa-solid fa-magnifying-glass"></i>
         <!-- <button type="submit" class="contact_button">Envoyer</button> -->
         </form>
 
-        <div id="selector">Ingrédients <i class="fa-solid fa-angle-down"></i></div>
-        <!-- <ul id="menu">
-            <li role="listbox" aria-selected="true" class="option" id="option" aria-labelledby="menu"> Popularité</li>
-            <li class="option" role="button"> Date </li>
-            <li class="option" role="button"> Titre </li>
-        </ul> -->
+        <div class="tag"></div>
+
+        <div class="mes_menus">
+            <div id="selector"> 
+                <div class ="fermer">
+                    Ingrédients <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class ="ouvert">
+                    <form id="formIngredient">
+                        <div class="sous-recherche">
+                            <input class="recherche-ingredient" type="text" placeholder="Rechercher un ingrédient" name="IngredientSearch"/>
+                            <i class="fa-solid fa-angle-up"></i>
+                        </div>
+                        <ul id="menuIngredients"></ul>
+                    </form>
+                    <!-- <div id="menuIngredients">
+                    </div> -->
+                    
+                </div> 
+            </div>
+
+            <div id="selector"> 
+                <div class ="fermer">
+                    Ingrédients <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class ="ouvert">
+                    <form id="formIngredient">
+                        <input class="recherche-ingredient" type="text" placeholder="Rechercher un ingrédient" name="IngredientSearch"/>
+                        <i class="fa-solid fa-angle-up"></i>
+                        <div>
+                            <ul id="menuIngredients">
+                            </ul>
+                        </div>
+                    </form>
+                    
+                    <!-- <div id="menuIngredients">
+                    </div> -->
+                    
+                </div> 
+            </div>
+        </div>
     
     </header>
     <main>

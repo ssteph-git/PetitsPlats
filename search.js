@@ -1,13 +1,16 @@
 
 let httpRequest;
 let valeurTapéGlobal;
+let valeurTapéIngredient="";
+let valeurCliquéIngredient="";
+let tabIngredientTrié=[];
 
 function search(){
     let tableauRecette = recipes;
 
-            let resultatRequette = tableauRecette.filter((tab => (tab.name.indexOf(valeurTapéGlobal) != -1)
-            || (tab.description.indexOf(valeurTapéGlobal) != -1)
-            || isNaN( tab.ingredients.filter(tab => tab.ingredient.indexOf(valeurTapéGlobal) != -1))));
+            let resultatRequette = tableauRecette.filter((recette => (recette.name.indexOf(valeurTapéGlobal) != -1)
+            || (recette.description.indexOf(valeurTapéGlobal) != -1)
+            || isNaN( recette.ingredients.filter(recette => recette.ingredient.indexOf(valeurTapéGlobal) != -1))));
 
             // console.log(resultatRequette);
 
@@ -24,17 +27,44 @@ function search(){
                     
                 })
             }
-            
 
+            const removeIngredient = document.querySelectorAll('.option');
+            if (removeIngredient != null){ 
+                removeIngredient.forEach((monIngredient) =>{
+                
+                    monIngredient.remove();
+                    
+                })
+            }
+
+
+            const selector = document.getElementById('selector');
+            const menu = document.getElementById('menuIngredients');
+            const tag = document.querySelector('.tag');
+
+            // selector.addEventListener('click', () => {
+            //     selector.style.display = 'none';
+            //     menu.style.display = 'block';
+            //   })
+
+            if(valeurTapéIngredient!=null)
+            {
+
+            let ingredientFilter =  resultatRequette.filter(tab => isNaN( tab.ingredients.filter(tab => tab.ingredient.toLowerCase().indexOf(valeurTapéIngredient.toLocaleLowerCase()) != -1)));
+            resultatRequette = ingredientFilter;
+
+            }
+
+            //Affichage des recettes----------------------------------------
             resultatRequette.forEach((maRecette) =>{
                 const recettes = document.getElementById('recettes');
                 const article = document.createElement('article');
                 article.setAttribute('class', 'articleRecette');
                 recettes.appendChild(article);
 
-                const { name, description, ingredients, time } = maRecette;
-                // console.log(ingredients);
+                let { name, description, ingredients, time } = maRecette;
 
+                //Card Recettes------------------------------------------
                 const imgRecette = document.createElement('img');
                 imgRecette.setAttribute('class', 'photoRecette');
                 imgRecette.setAttribute('src', 'assets/recettes/imageRecette.jpg');
@@ -74,9 +104,74 @@ function search(){
                 divMesIngredients.setAttribute('class','mesIngredients');
                 divDescription.appendChild(divMesIngredients);
 
+                
 
-
+                 //Affichage menu Ingrédients---------------------------------------
+                ingredientExisteDeja=false;
                 ingredients.forEach((ingredient) =>{
+                //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
+                console.log(ingredient.ingredient.toLowerCase()+'='+valeurTapéIngredient.toLowerCase()+'>'+(ingredient.ingredient.toLowerCase().indexOf(valeurTapéIngredient.toLowerCase())));
+
+                if(ingredient.ingredient.toLowerCase().indexOf(valeurTapéIngredient.toLowerCase()) != -1)
+                {
+
+                    const option = document.getElementsByClassName('option');
+    
+                    if(option.length != 0){
+                        //Recherche de l'ingrédient dans le DOM
+                        Array.from(option).forEach((element, index) => {
+                            if(element.innerText.toLowerCase() == ingredient.ingredient.toLowerCase()){
+                                ingredientExisteDeja = true;
+    
+                            }
+                          });
+                          //S'il n'existe pas dans le DOM: on le met dedans
+                        if(ingredientExisteDeja==false){
+                            const li = document.createElement('li');
+                                li.setAttribute('class', 'option');
+                                li.textContent = ingredient.ingredient;
+                                menu.appendChild(li);
+
+                                //Selection, affichage et suppression du TAG
+                                li.addEventListener('click', () => {
+                                    tag.style.display = 'block';
+                                    const pIngredient = document.createElement('p');
+                                    pIngredient.setAttribute('class', 'pIngredient');
+                                    pIngredient.textContent = ingredient.ingredient;
+                                    tag.appendChild(pIngredient);
+
+                                    valeurTapéIngredient = ingredient.ingredient;
+                                    search();
+
+                                    const removeTagIngredient = document.querySelector('.pIngredient');
+                                    removeTagIngredient.addEventListener('click', () => { 
+                                            valeurTapéIngredient = "";
+                                            pIngredient.remove();//Suppression du TAG du DOM
+                                            search();
+                                        // }
+                                    });
+
+                                  })
+
+                        }else{
+                            ingredientExisteDeja = false;
+                        }
+    
+                    }
+                    else{
+                        //Pour le premier affichage du "li" (car il n'existe pas en premier)
+                        const li = document.createElement('li');
+                                li.setAttribute('class', 'option');
+                                li.textContent = ingredient.ingredient;
+                                menu.appendChild(li);
+                    }
+
+
+                }
+                //Affichage menu Ingrédients---------------------------------------   
+
+           
+                //Afficharge des ingrédients: dans les recettes-----------------------------
                     const divIngredient = document.createElement('div');
                     divIngredient.setAttribute('class','divIngredient');
                     divMesIngredients.appendChild(divIngredient);
@@ -102,25 +197,59 @@ function search(){
                         pUnité.textContent = ingredient.unit;
                     }
                     divIngredient.appendChild(pUnité);
+                //Afficharge des ingrédients: dans les recettes-----------------------------
                 })
 
+                //Description des card recettes
                 const pDescription = document.createElement('p');
                 pDescription.setAttribute('class','pDescription');
                 pDescription.textContent = description;
                 divDescription.appendChild(pDescription);
 
-
             })
 
 }
 
-const form = document.getElementById('form');
+const formPrimaire = document.getElementById('formPrimaire');
 const recherchePrimaire = document.querySelector('.recherche-primaire');
 recherchePrimaire.addEventListener('keydown', () => { 
-    if (form.firstSearch.value.length >= 2){
-        valeurTapéGlobal = form.firstSearch.value;
+    if (formPrimaire.firstSearch.value.length >= 2){
+        valeurTapéGlobal = formPrimaire.firstSearch.value;
         search();
     }
-
 });
 
+const formIngredient = document.getElementById('formIngredient');
+const rechercheIngredient = document.querySelector('.recherche-ingredient');
+rechercheIngredient.addEventListener('keydown', () => { 
+        valeurTapéIngredient = formIngredient.IngredientSearch.value;
+        search();
+});
+
+const menuIngredientFermer = document.querySelector('.fermer');
+const menuIngredientOuvert = document.querySelector('.ouvert');
+const menuIngredientSelector = document.querySelector('#selector');
+menuIngredientFermer.addEventListener('click', () => { 
+    menuIngredientFermer.style.display = 'none';
+    menuIngredientOuvert.style.display = 'block';
+    menuIngredientSelector.style.width = '54%';
+});
+
+menuIngredientOuvert.addEventListener('click', () => { 
+    menuIngredientOuvert.style.display = 'none';
+    menuIngredientFermer.style.display = 'flex';
+
+    menuIngredientSelector.style.width = '13.7%';
+});
+
+
+window.addEventListener('keydown', function (event) { // Gestion des touches du clavier: pour la lightbox
+   
+    if (event.key === 'ArrowRight') {
+        /*tabIngredientTrié.forEach((tri)=>{
+            console.log(tri);
+        })
+        console.log(tabIngredientTrié);*/
+    }
+  
+  })

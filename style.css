@@ -61,11 +61,21 @@ article img{
     border-radius: 5px;
 }
 
+.recherche-ingredient{
+    border: 0px;
+    background-color: #3281F7;
+    font-size: 15px;
+}
+
+.recherche-ingredient::placeholder{
+    color: #82B3FA;
+}
+
 .recherche-primaire::placeholder{
     color: #C6C6C6;
 }
 
-#form{
+#formPrimaire{
     display: flex;
     align-items: center;
 }
@@ -76,16 +86,42 @@ article img{
     margin-top: 15px;
 }
 
-#selector{
+#selector {
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     background-color: #3281F7;
     border-radius: 5px;
     color: white;
-    width: 17.99%;
+    /* max-width: 54%; */
+    /* width: 17.99%; */
+    width: 13.7%;
+}
+
+#menuIngredients {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 20vw;
+    overflow-y: scroll;
+    /* width: 10%;
+    height: 24vw; */
+    list-style: none;
+}
+
+
+.fermer {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 12px;
+    padding-right: 16px;
+    /* width: 10%; */
+    font-size: 17.5px;
+}
+
+.ouvert{
+    display:none;
+
 }
 
 #recettes{
@@ -146,4 +182,23 @@ article img{
 .details{
     padding-left: 20px;
     padding-right: 20px;
+}
+
+.tag{
+    display: none;
+}
+
+.pIngredient{
+    
+}
+
+.sous-recherche{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+li option {
+    width: 35%;
 }
