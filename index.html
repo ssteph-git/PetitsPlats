@@ -27,7 +27,9 @@
         <!-- <button type="submit" class="contact_button">Envoyer</button> -->
         </form>
 
-        <div class="tag"></div>
+        <div class="tag">
+            <div class="tagIngredient"></div>
+        </div>
 
         <div class="mes_menus">
             <div id="selector"> 
@@ -48,9 +50,29 @@
                 </div> 
             </div>
 
-            <div id="selector"> 
+            <div id="selectorAppareil"> 
                 <div class ="fermer">
-                    Ingrédients <i class="fa-solid fa-angle-down"></i>
+                    Appareils <i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class ="ouvert">
+                    <form id="formIngredient">
+                        <input class="recherche-ingredient" type="text" placeholder="Rechercher un ingrédient" name="IngredientSearch"/>
+                        <i class="fa-solid fa-angle-up"></i>
+                        <div>
+                            <ul id="menuIngredients">
+                            </ul>
+                        </div>
+                    </form>
+                    
+                    <!-- <div id="menuIngredients">
+                    </div> -->
+                    
+                </div> 
+            </div>
+
+            <div id="selectorUstensiles"> 
+                <div class ="fermer">
+                    Ustensiles <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class ="ouvert">
                     <form id="formIngredient">
@@ -71,6 +93,10 @@
     
     </header>
     <main>
+        <div id="aucun-article">
+            <p> Aucune recette ne correspond à votre critère… vous pouvez 
+                chercher « tarte aux pommes », « poisson »...</p>
+        </div>
         <div id="recettes"></div>
     </main>
 
