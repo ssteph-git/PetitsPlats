@@ -29,6 +29,7 @@
 
         <div class="tag">
             <div class="tagIngredient"></div>
+            <div class="tagAppareil"></div>
         </div>
 
         <div class="mes_menus">
@@ -51,15 +52,17 @@
             </div>
 
             <div id="selectorAppareil"> 
-                <div class ="fermer">
+                <div class ="fermerAppareil">
                     Appareils <i class="fa-solid fa-angle-down"></i>
                 </div>
-                <div class ="ouvert">
-                    <form id="formIngredient">
-                        <input class="recherche-ingredient" type="text" placeholder="Rechercher un ingrédient" name="IngredientSearch"/>
-                        <i class="fa-solid fa-angle-up"></i>
+                <div class ="ouvertAppareil">
+                    <form id="formAppareil">
+                        <div class="sous-recherche">
+                            <input class="recherche-appareil" type="text" placeholder="Rechercher un appareil" name="AppareilSearch"/>
+                            <i class="fa-solid fa-angle-up"></i>
+                        </div>
                         <div>
-                            <ul id="menuIngredients">
+                            <ul id="menuAppareils">
                             </ul>
                         </div>
                     </form>
@@ -75,11 +78,13 @@
                     Ustensiles <i class="fa-solid fa-angle-down"></i>
                 </div>
                 <div class ="ouvert">
-                    <form id="formIngredient">
-                        <input class="recherche-ingredient" type="text" placeholder="Rechercher un ingrédient" name="IngredientSearch"/>
-                        <i class="fa-solid fa-angle-up"></i>
+                    <form id="formUstensile">
+                        <div class="sous-recherche">
+                            <input class="recherche-ustensile" type="text" placeholder="Rechercher un ustensile" name="UstensileSearch"/>
+                            <i class="fa-solid fa-angle-up"></i>
+                        </div>
                         <div>
-                            <ul id="menuIngredients">
+                            <ul id="menuUstensiles">
                             </ul>
                         </div>
                     </form>

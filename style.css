@@ -71,6 +71,16 @@ article img{
     color: #82B3FA;
 }
 
+.recherche-appareil{
+    border: 0px;
+    background-color: #68D9A5;
+    font-size: 15px;
+}
+
+.recherche-appareil::placeholder{
+    color: #B4ECD2;
+}
+
 .recherche-primaire::placeholder{
     color: #C6C6C6;
 }
@@ -84,6 +94,10 @@ article img{
     margin-left: -50px;
     font-size: 25px;
     margin-top: 15px;
+}
+
+.fa-regular{
+    margin-left: 10px;
 }
 
 #selector {
@@ -129,14 +143,14 @@ article img{
     flex-direction: column;
     flex-wrap: wrap;
     height: 20vw;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     /* width: 10%;
     height: 24vw; */
     list-style: none;
 }
 
 
-.fermer {
+.fermer,.fermerAppareil,.fermerUstensile {
     display: flex;
     justify-content: space-between;
     padding-left: 12px;
@@ -145,7 +159,7 @@ article img{
     font-size: 17.5px;
 }
 
-.ouvert{
+.ouvert,.ouvertAppareil,.ouvertUstensile{
     display:none;
 
 }
@@ -212,6 +226,7 @@ article img{
 
 .tag{
     /* display: none; */
+    display: flex;
     margin-top: 31px;
 }
 
@@ -219,10 +234,28 @@ article img{
     display: none;
 }
 
+.tagAppareil{
+    display: none;
+}
+
 .pIngredient{
     background-color: #3281F7;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 7.5px;
+    border-radius: 4px;
+    padding-bottom: 7.5px;
+    margin-right: 10px;
+    color: white;
+}
+
+.pAppareil{
+    background-color: #68D9A5;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    border-radius: 4px;
     margin-right: 10px;
     color: white;
 }
