@@ -1,3 +1,5 @@
+/* *{border: red solid 1px} */
+
 html {
     box-sizing: border-box;
     /* margin-left: 80px;
@@ -65,6 +67,7 @@ article img{
     border: 0px;
     background-color: #3281F7;
     font-size: 15px;
+    color: white;
 }
 
 .recherche-ingredient::placeholder{
@@ -75,6 +78,18 @@ article img{
     border: 0px;
     background-color: #68D9A5;
     font-size: 15px;
+    color: white;
+}
+
+.recherche-ustensile::placeholder{
+    color: #F6B2AA;
+}
+
+.recherche-ustensile{
+    border: 0px;
+    background-color: #ED6454;
+    font-size: 15px;
+    color: white;
 }
 
 .recherche-appareil::placeholder{
@@ -107,9 +122,19 @@ article img{
     background-color: #3281F7;
     border-radius: 5px;
     color: white;
-    /* max-width: 54%; */
+    max-width: 54%;
     /* width: 17.99%; */
-    width: 13.7%;
+    /* width: 13.7%; */
+    height: max-content;
+}
+
+i.fa-solid.fa-angle-down {
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.fa-angle-up{
+    cursor: pointer;
 }
 
 #selectorAppareil {
@@ -120,12 +145,24 @@ article img{
     background-color: #68D9A5;
     border-radius: 5px;
     color: white;
-    /* max-width: 54%; */
+    max-width: 54%;
     /* width: 17.99%; */
-    width: 13.7%;
+    /* width: 13.7%; */
+    height: max-content;
 }
 
 #selectorUstensiles {
+    /* margin-top: 20px;
+    margin-left: 12.5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ED6454;
+    border-radius: 5px;
+    color: white; */
+    /* max-width: 54%; */
+    /* width: 17.99%; */
+    /* width: 13.7%; */
+
     margin-top: 20px;
     margin-left: 12.5px;
     padding-top: 20px;
@@ -133,20 +170,24 @@ article img{
     background-color: #ED6454;
     border-radius: 5px;
     color: white;
-    /* max-width: 54%; */
+    max-width: 54%;
     /* width: 17.99%; */
-    width: 13.7%;
+    /* width: 13.7%; */
+    height: max-content;
 }
 
-#menuIngredients {
+#menuIngredients,#menuAppareils,#menuUstensiles {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     flex-wrap: wrap;
-    height: 20vw;
+    /* height: 20vw; */
     /* overflow-x: scroll; */
-    /* width: 10%;
-    height: 24vw; */
     list-style: none;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* justify-items: unset; */
+    margin-bottom: 0px;
 }
 
 
@@ -168,7 +209,8 @@ article img{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 70px;
+    /* margin-top: 70px; */
+    margin-top: 120px;
 }
 
 
@@ -232,9 +274,14 @@ article img{
 
 .tagIngredient{
     display: none;
+    flex-wrap: wrap;
 }
 
 .tagAppareil{
+    display: none;
+}
+
+.tagUstensile{
     display: none;
 }
 
@@ -260,10 +307,21 @@ article img{
     color: white;
 }
 
-.sous-recherche{
+.pUstensile{
+    background-color: #ED6454;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+    border-radius: 4px;
+    margin-right: 10px;
+    color: white;
+}
+
+.sous-recherche {
     display: flex;
     justify-content: space-between;
-    padding-left: 24px;
+    padding-left: 14px;
     padding-right: 24px;
 }
 
@@ -273,6 +331,7 @@ li option {
 
 .mes_menus{
     display: flex;
+    position: absolute;
 }
 
 #aucun-article{
@@ -280,5 +339,70 @@ li option {
 }
 
 #aucun-article p{
-    margin-top: 10px;
+    margin-top: 100px;
+}
+
+.option{
+    width: 26%;
+    /* height: 2.5vw; */
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+
+@media (max-width: 866px) {
+
+    .articleRecette {
+        width: 45%;
+    }
+
+    .recherche-primaire {
+        width: 95%;
+    }
+
+}
+
+@media (max-width: 636px) {
+
+    html {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    .articleRecette {
+        width: 100%;
+    }
+
+    .recherche-primaire {
+        width: 95%;
+    }
+
+    .mes_menus {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    #recettes {
+        margin-top: 30px;
+    }
+
+    #selector {
+        max-width: none;
+    }
+
+    #selectorAppareil {
+        margin-left: 0px;
+        max-width: none;
+    }
+
+    #selectorUstensiles {
+        margin-left: 0px;
+        max-width: none;
+    }
+
+    #aucun-article p {
+        margin-top: 20px;
+    }
+
 }
