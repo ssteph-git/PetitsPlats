@@ -38,11 +38,6 @@ function search() {
         tag.style.display = 'flex';
     }
 
-    // console.log(resultatRequette);
-    /*let triIngredient =  tableauRecette.filter(tab => isNaN( tab.ingredients.filter(tab => tab.ingredient.indexOf(valeurTapéGlobal) != -1)));
-    let triIngredient =  tableauRecette.filter(tab => tab.ingredients.filter(tab => tab.ingredient.indexOf(valeurTapéGlobal) != -1));
-    let triDescription = tableauRecette.filter((tab => (tab.description.indexOf(valeurTapéGlobal) != -1)));*/
-
     //Effacer les articles affichés, avant d'en afficher d'autres
     const removeArticle = document.querySelectorAll('.articleRecette');
     if (removeArticle != null) {
@@ -66,17 +61,17 @@ function search() {
 
 
     //Permet de filtrer les résultats du sous menu: en fonction des tag affiché--------------------------------------------------
+    //Ingredient
     Array.from(allTagIngredient).forEach((allTagIngredient, index) => {
         ingredientFilter = resultatRequette.filter(tab => isNaN(tab.ingredients.filter(tab => tab.ingredient.toLowerCase().indexOf(allTagIngredient.innerText.toLowerCase()) != -1)));
         resultatRequette = ingredientFilter;
-        console.log(resultatRequette);
     });
-
+    //Appareil
     Array.from(allTagAppareil).forEach((allTagAppareil, index) => {
         appareilFilter = resultatRequette.filter(tab => tab.appliance.indexOf(allTagAppareil.innerText) != -1);
         resultatRequette = appareilFilter;
     });
-
+    //Ustensile
     Array.from(allTagUstensile).forEach((allTagUstensile, index) => {
         ustensileFilter = resultatRequette.filter(tab => tab.ustensils.indexOf(allTagUstensile.innerText) != -1);
         resultatRequette = ustensileFilter;
@@ -107,6 +102,7 @@ function search() {
             //Card Recettes------------------------------------------
             const imgRecette = document.createElement('img');
             imgRecette.setAttribute('class', 'photoRecette');
+            imgRecette.setAttribute('alt', 'Photo de la recette');
             imgRecette.setAttribute('src', 'assets/recettes/imageRecette.jpg');
             article.appendChild(imgRecette);
 
@@ -122,8 +118,8 @@ function search() {
             divDescription.setAttribute('class', 'divDescription');
             divDetails.appendChild(divDescription);
 
-            const pTitre = document.createElement('p');
-            pTitre.setAttribute('class', 'pTitre');
+            const pTitre = document.createElement('h2');
+            pTitre.setAttribute('class', 'hTitre');
             pTitre.textContent = name;
             divTitre.appendChild(pTitre);
 
@@ -144,22 +140,17 @@ function search() {
             divMesIngredients.setAttribute('class', 'mesIngredients');
             divDescription.appendChild(divMesIngredients);
 
-            let appareilExisteDeja = false;
-            // affichageAppareils(appliance,menuAppareil,tagAppareil,appareilExisteDeja);
-            affichageDuSousMenu(appliance, menuAppareil, tagAppareil, appareilExisteDeja, 'Appareil');
+            affichageDuSousMenu(appliance, menuAppareil, tagAppareil, false, 'Appareil');
 
-            let ustensileExisteDeja = false;
             ustensils.forEach((ustensile) => {
-                // affichageUstensiles(ustensile,menuUstensile,tagUstensile,ustensileExisteDeja);
-                affichageDuSousMenu(ustensile, menuUstensile, tagUstensile, ustensileExisteDeja, 'Ustensile');
+                affichageDuSousMenu(ustensile, menuUstensile, tagUstensile, false, 'Ustensile');
             })
 
             //Affichage menu Ingrédients---------------------------------------
-            ingredientExisteDeja = false;
             ingredients.forEach((ingredient) => {
                 //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
                 // affichageIngredient(ingredient,menu,tagIngredient,ingredientExisteDeja);
-                affichageDuSousMenu(ingredient, menu, tagIngredient, ingredientExisteDeja, 'Ingredient');
+                affichageDuSousMenu(ingredient, menu, tagIngredient, false, 'Ingredient');
                 //Affichage menu Ingrédients---------------------------------------   
 
 
@@ -206,150 +197,10 @@ function search() {
     }
 }
 
-function ajoutIngredientMenu(ingredient, menu, tagIngredient) {
-    //Pour le premier affichage du "li" (car il n'existe pas en premier)
-    const li = document.createElement('li');
-    li.setAttribute('class', 'option');
-    li.textContent = ingredient.ingredient;
-    menu.appendChild(li);
-
-    //Selection, affichage et suppression du TAG
-    li.addEventListener('click', () => {
-        tagIngredient.style.display = 'flex';
-        const pIngredient = document.createElement('p');
-        pIngredient.setAttribute('class', 'pIngredient');
-        pIngredient.textContent = ingredient.ingredient;
-        tagIngredient.appendChild(pIngredient);
-
-        const iTagIngredient = document.createElement('i');
-        iTagIngredient.setAttribute('class', 'fa-regular fa-circle-xmark');
-        pIngredient.appendChild(iTagIngredient);
-
-        valeurTapéIngredient = ingredient.ingredient;
-
-        search();
-        let formIngredient = document.getElementById('formIngredient');
-        formIngredient.IngredientSearch.value = "";
-
-        pIngredient.addEventListener('click', () => {
-
-            pIngredient.remove();//Suppression du TAG du DOM
-
-            //Recherche des tag dans le dom, à garder après suppression d'un tag
-            const allTag = document.getElementsByClassName('pIngredient');
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    valeurTapéIngredient = allTag.innerText;
-                    search();
-                });
-            }
-            else {
-                valeurTapéIngredient = "";
-                search();
-            }
-        });
-
-    })
-}
-
-function ajoutAppareilMenu(appareil, menuAppareil, tagAppareil) {
-    //Pour le premier affichage du "li" (car il n'existe pas en premier)
-    const li = document.createElement('li');
-    li.setAttribute('class', 'option');
-    li.textContent = appareil;
-    menuAppareil.appendChild(li);
-
-    //Selection, affichage et suppression du TAG
-    li.addEventListener('click', () => {
-        tagAppareil.style.display = 'flex';
-        const pAppareil = document.createElement('p');
-        pAppareil.setAttribute('class', 'pAppareil');
-        pAppareil.textContent = appareil;
-        tagAppareil.appendChild(pAppareil);
-
-        const iTagAppareil = document.createElement('i');
-        iTagAppareil.setAttribute('class', 'fa-regular fa-circle-xmark');
-        pAppareil.appendChild(iTagAppareil);
-
-        valeurTapéAppareil = appareil;
-
-        search();
-        let formAppareil = document.getElementById('formAppareil');
-        formAppareil.AppareilSearch.value = "";
-
-
-        pAppareil.addEventListener('click', () => {
-
-            pAppareil.remove();//Suppression du TAG du DOM
-
-            //Recherche des tag dans le dom, à garder après suppression d'un tag
-            const allTag = document.getElementsByClassName('pAppareil');
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    valeurTapéAppareil = allTag.innerText;
-                    search();
-                });
-            }
-            else {
-                valeurTapéAppareil = "";
-                search();
-            }
-        });
-
-    })
-}
-
-function ajoutUstensileMenu(ustensile, menuUstensile, tagUstensile) {
-    //Pour le premier affichage du "li" (car il n'existe pas en premier)
-    const li = document.createElement('li');
-    li.setAttribute('class', 'option');
-    li.textContent = ustensile;
-    menuUstensile.appendChild(li);
-
-    //Selection, affichage et suppression du TAG
-    li.addEventListener('click', () => {
-        tagUstensile.style.display = 'flex';
-        const pUstensile = document.createElement('p');
-        pUstensile.setAttribute('class', 'pUstensile');
-        pUstensile.textContent = ustensile;
-        tagUstensile.appendChild(pUstensile);
-
-        const iTagUstensile = document.createElement('i');
-        iTagUstensile.setAttribute('class', 'fa-regular fa-circle-xmark');
-        pUstensile.appendChild(iTagUstensile);
-
-        valeurTapéUstensile = ustensile;
-
-        search();
-        //supprime la valeur tapé dans le champ du sous menu de recherche: après avoir choisis un tag
-        let formUstensile = document.getElementById('formUstensile');
-        formUstensile.UstensileSearch.value = "";
-
-        pUstensile.addEventListener('click', () => {
-
-            pUstensile.remove();//Suppression du TAG du DOM
-
-            //Recherche des tag dans le dom, à garder après suppression d'un tag
-            const allTag = document.getElementsByClassName('pUstensile');
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    valeurTapéUstensile = allTag.innerText;
-                    search();
-                });
-            }
-            else {
-                valeurTapéUstensile = "";
-                search();
-            }
-        });
-
-    })
-}
-
 
 function ajoutItemMenu(valeurItem, menuItem, tagItem, typeMenu) {
     //Pour le premier affichage du "li" (car il n'existe pas en premier)
-    let classPItem, ItemSearch, valeurTapé;
+    let classPItem;
     let formItem;
 
     switch (typeMenu) {
@@ -531,235 +382,6 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
     }
 }
 
-function affichageIngredient(ingredient, menu, tagIngredient, ingredientExisteDeja) {
-    //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
-    if (ingredient.ingredient.toLowerCase() != valeurTapéIngredient.toLowerCase())
-    {
-        const option = document.getElementsByClassName('option');
-
-        if (option.length != 0) {
-            //Recherche de l'ingrédient dans le DOM
-            Array.from(option).forEach((element, index) => {
-                if (element.innerText.toLowerCase() == ingredient.ingredient.toLowerCase()) {
-                    ingredientExisteDeja = true;
-                }
-            });
-            //S'il n'existe pas dans le DOM: on le met dedans
-            if (ingredientExisteDeja == false) {
-                const allTag = document.getElementsByClassName('pIngredient');
-                let optionPasAfficher = false;
-                //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-                if (allTag.length != 0) {
-                    Array.from(allTag).forEach((allTag, index) => {
-                        if (ingredient.ingredient.toLocaleLowerCase() == allTag.innerText.toLocaleLowerCase()) {
-                            optionPasAfficher = true;
-                        }
-                    });
-                }
-                if (optionPasAfficher == false) {
-                    ajoutIngredientMenu(ingredient, menu, tagIngredient);
-                }
-
-            } else {
-                ingredientExisteDeja = false;
-            }
-
-        }
-        else {
-
-            const allTag = document.getElementsByClassName('pIngredient');
-            let optionPasAfficher = false;
-            //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    if (ingredient.ingredient == allTag.innerText) {
-                        optionPasAfficher = true;
-                    }
-                });
-            }
-
-            if (optionPasAfficher == false) {
-                ajoutIngredientMenu(ingredient, menu, tagIngredient);
-
-            }
-        }
-
-    }
-    else {
-        const option = document.querySelectorAll('#menuIngredients>.option');
-        let ingredientExisteDeja = false;
-
-        //Recherche de l'ingrédient dans le DOM
-        Array.from(option).forEach((element, index) => {
-            if (element.innerText.toLowerCase() == ingredient.ingredient.toLowerCase()) {
-                ingredientExisteDeja = true;
-            }
-        });
-
-        if (ingredientExisteDeja == false) {
-
-            const allTag = document.getElementsByClassName('pIngredient');
-            let optionPasAfficher = false;
-            //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    if (ingredient.ingredient.toLocaleLowerCase() == allTag.innerText.toLocaleLowerCase()) {
-                        optionPasAfficher = true;
-                    }
-                });
-            }
-
-            if (optionPasAfficher == false) {
-                ajoutIngredientMenu(ingredient, menu, tagIngredient);
-
-            }
-        }
-
-    }
-}
-
-function affichageAppareils(appareil, menuAppareil, tagAppareil, appareilExisteDeja) {
-   
-    //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
-    if (appareil.toLowerCase() != valeurTapéAppareil.toLowerCase())
-    {
-        const option = document.getElementsByClassName('option');
-
-        if (option.length != 0) {
-            //Recherche de l'ingrédient dans le DOM
-            Array.from(option).forEach((element, index) => {
-                if (element.innerText.toLowerCase() == appareil.toLowerCase()) {
-                    appareilExisteDeja = true;
-                }
-            });
-            //S'il n'existe pas dans le DOM: on le met dedans
-            if (appareilExisteDeja == false) {
-                const allTag = document.getElementsByClassName('pAppareil');
-                let optionPasAfficher = false;
-                //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-                if (allTag.length != 0) {
-                    Array.from(allTag).forEach((allTag, index) => {
-                        if (appareil == allTag.innerText) {
-                            optionPasAfficher = true;
-                        }
-                    });
-                }
-                if (optionPasAfficher == false) {
-                    // ajoutIngredientMenu(ingredient,menu,tagIngredient);
-                    ajoutAppareilMenu(appareil, menuAppareil, tagAppareil);
-                }
-
-            } else {
-                appareilExisteDeja = false;
-            }
-
-        }
-        else {
-            ajoutAppareilMenu(appareil, menuAppareil, tagAppareil);
-        }
-
-    } else {
-        const option = document.querySelectorAll('#menuAppareils>.option');
-        let appareilExisteDeja = false;
-        
-        //Recherche de l'ingrédient dans le DOM
-        Array.from(option).forEach((element, index) => {
-            if (element.innerText.toLowerCase() == appareil.toLowerCase()) {
-                appareilExisteDeja = true;
-            }
-        });
-
-        if (appareilExisteDeja == false) {
-
-            const allTag = document.getElementsByClassName('pAppareil');
-            let optionPasAfficher = false;
-            //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    if (appareil == allTag.innerText) {
-                        optionPasAfficher = true;
-                    }
-                });
-            }
-
-            if (optionPasAfficher == false) {
-                ajoutAppareilMenu(appareil, menuAppareil, tagAppareil);
-
-            }
-        }
-    }
-}
-
-function affichageUstensiles(ustensile, menuUstensile, tagUstensile, ustensileExisteDeja) {
-
-    //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
-    if (ustensile.toLowerCase() != valeurTapéUstensile.toLowerCase())
-    {
-        const option = document.getElementsByClassName('option');
-
-        if (option.length != 0) {
-            //Recherche de l'ingrédient dans le DOM
-            Array.from(option).forEach((element, index) => {
-                if (element.innerText.toLowerCase() == ustensile.toLowerCase()) {
-                    ustensileExisteDeja = true;
-                }
-            });
-            //S'il n'existe pas dans le DOM: on le met dedans
-            if (ustensileExisteDeja == false) {
-
-                const allTag = document.getElementsByClassName('pUstensile');
-                let optionPasAfficher = false;
-                //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-                if (allTag.length != 0) {
-                    Array.from(allTag).forEach((allTag, index) => {
-                        if (ustensile == allTag.innerText) {
-                            optionPasAfficher = true;
-                        }
-                    });
-                }
-                if (optionPasAfficher == false) {
-                    ajoutUstensileMenu(ustensile, menuUstensile, tagUstensile);
-                }
-
-
-            } else {
-                ustensileExisteDeja = false;
-            }
-
-        }
-    } else {
-        const option = document.querySelectorAll('#menuUstensiles>.option');
-        let ustensileExisteDeja = false;
-        
-        //Recherche de l'ingrédient dans le DOM
-        Array.from(option).forEach((element, index) => {
-            if (element.innerText.toLowerCase() == ustensile.toLowerCase()) {
-                ustensileExisteDeja = true;
-            }
-        });
-
-        if (ustensileExisteDeja == false) {
-
-            const allTag = document.getElementsByClassName('pUstensile');
-            let optionPasAfficher = false;
-            //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
-            if (allTag.length != 0) {
-                Array.from(allTag).forEach((allTag, index) => {
-                    if (ustensile == allTag.innerText) {
-                        optionPasAfficher = true;
-                    }
-                });
-            }
-
-            if (optionPasAfficher == false) {
-                ajoutUstensileMenu(ustensile, menuUstensile, tagUstensile);
-
-            }
-        }
-
-    }
-}
-
 
 const formPrimaire = document.getElementById('formPrimaire');
 const recherchePrimaire = document.querySelector('.recherche-primaire');
@@ -801,7 +423,6 @@ rechercheIngredient.addEventListener('keyup', () => {
 
 
     ingredientFiltré.forEach((monFiltre) => {
-        // affichageIngredient(monFiltre,menu,tagIngredient,false);
         affichageDuSousMenu(monFiltre, menu, tagIngredient, false, 'Ingredient');
     });
 
@@ -836,7 +457,6 @@ rechercheAppareil.addEventListener('keyup', () => {
     const tagAppareil = document.querySelector('.tagAppareil');
 
     appareilFiltré.forEach((monFiltre) => {
-        // affichageAppareils(monFiltre,menu,tagAppareil,false);
         affichageDuSousMenu(monFiltre, menu, tagAppareil, false, 'Appareil');
 
     });
@@ -877,8 +497,7 @@ rechercheUstensile.addEventListener('keyup', () => {
 
 
     ustensileFiltré.forEach((monFiltre) => {
-        affichageUstensiles(monFiltre, menu, tagUstensile, false);
-        // affichageDuSousMenu(ustensile,menuUstensile,tagUstensile,false,'Ustensile');
+        affichageDuSousMenu(monFiltre,menu,tagUstensile,false,'Ustensile');
 
     });
 
