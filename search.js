@@ -1,4 +1,3 @@
-
 let valeurTapéGlobal = null;
 let valeurTapéIngredient = "";
 let valeurTapéAppareil = "";
@@ -12,15 +11,14 @@ let messageAucuneRecette = false;
 let tableauRecette = recipes;
 let resultatRequette;
 
-
 function search() {
 
     if (valeurTapéGlobal != null) {
-        resultatRequette = tableauRecette.filter((recette => (recette.name.indexOf(valeurTapéGlobal.toLocaleLowerCase()) != -1)
-            || (recette.description.indexOf(valeurTapéGlobal.toLocaleLowerCase()) != -1)
-            || isNaN(recette.ingredients.filter(recette => recette.ingredient.indexOf(valeurTapéGlobal.toLocaleLowerCase()) != -1))));
+        resultatRequette = tableauRecette.filter((recette => (recette.name.toLowerCase().indexOf(valeurTapéGlobal.toLowerCase()) != -1)
+            || (recette.description.toLowerCase().indexOf(valeurTapéGlobal.toLowerCase()) != -1)
+            || isNaN(recette.ingredients.filter(recette => recette.ingredient.toLowerCase().indexOf(valeurTapéGlobal.toLowerCase()) != -1))));
     }
-    else {
+    else { 
         //Chargement au démarage du site web: de toutes les recettes
         resultatRequette = tableauRecette;
     }
@@ -73,7 +71,11 @@ function search() {
     });
     //Ustensile
     Array.from(allTagUstensile).forEach((allTagUstensile, index) => {
-        ustensileFilter = resultatRequette.filter(tab => tab.ustensils.indexOf(allTagUstensile.innerText) != -1);
+        
+        ustensileFilter = resultatRequette.filter(tab => {
+            return tab.ustensils.map(tab=>tab.toLowerCase()).indexOf(allTagUstensile.innerText.toLowerCase()) != -1
+        }); 
+        
         resultatRequette = ustensileFilter;
     });
     //-------------------------------------------------------------------------------------------------------------------------------------------
@@ -146,13 +148,10 @@ function search() {
                 affichageDuSousMenu(ustensile, menuUstensile, tagUstensile, false, 'Ustensile');
             })
 
-            //Affichage menu Ingrédients---------------------------------------
+           
             ingredients.forEach((ingredient) => {
-                //Recherche si l'on a tapé quelquche à prendre en compte dans le sous menu des ingredients
-                // affichageIngredient(ingredient,menu,tagIngredient,ingredientExisteDeja);
+                 //Affichage menu Ingrédients
                 affichageDuSousMenu(ingredient, menu, tagIngredient, false, 'Ingredient');
-                //Affichage menu Ingrédients---------------------------------------   
-
 
                 //Afficharge des ingrédients: dans les recettes-----------------------------
                 const divIngredient = document.createElement('div');
@@ -279,21 +278,21 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
 
     switch (typeMenu) {
         case 'Ingredient':
-            valeurStockéModifié = valeurStockéDéfaut.ingredient.toLocaleLowerCase();
+            valeurStockéModifié = valeurStockéDéfaut.ingredient.toLowerCase();
             valeurTapé = valeurTapéIngredient.toLowerCase();
             pValeur = 'pIngredient';
             optionValeur = '#menuIngredients>.option';
             break
 
         case 'Appareil':
-            valeurStockéModifié = valeurStockéDéfaut.toLocaleLowerCase();
+            valeurStockéModifié = valeurStockéDéfaut.toLowerCase();
             valeurTapé = valeurTapéAppareil.toLowerCase();
             pValeur = 'pAppareil';
             optionValeur = '#menuAppareils>.option';
             break
 
         case 'Ustensile':
-            valeurStockéModifié = valeurStockéDéfaut.toLocaleLowerCase();
+            valeurStockéModifié = valeurStockéDéfaut.toLowerCase();
             valeurTapé = valeurTapéUstensile.toLowerCase();
             pValeur = 'pUstensile';
             optionValeur = '#menuUstensiles>.option';
@@ -304,7 +303,7 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
         const option = document.getElementsByClassName('option');
 
         if (option.length != 0) {
-            //Recherche de l'ingrédient dans le DOM
+            //Recherche de l'item dans le DOM
             Array.from(option).forEach((element, index) => {
                 if (element.innerText.toLowerCase() == valeurStockéModifié) {
                     valeurExisteDeja = true;
@@ -317,7 +316,7 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
                 //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
                 if (allTag.length != 0) {
                     Array.from(allTag).forEach((allTag, index) => {
-                        if (valeurStockéModifié == allTag.innerText.toLocaleLowerCase()) {
+                        if (valeurStockéModifié == allTag.innerText.toLowerCase()) {
                             optionPasAfficher = true;
                         }
                     });
@@ -338,7 +337,7 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
             //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
             if (allTag.length != 0) {
                 Array.from(allTag).forEach((allTag, index) => {
-                    if (valeurStockéModifié == allTag.innerText.toLocaleLowerCase()) {
+                    if (valeurStockéModifié == allTag.innerText.toLowerCase()) {
                         optionPasAfficher = true;
                     }
                 });
@@ -346,7 +345,6 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
 
             if (optionPasAfficher == false) {
                 ajoutItemMenu(valeurStockéDéfaut, menu, tagIngredient, typeMenu);
-                // ajoutIngredientMenu(valeurStockéDéfaut,menu,tagIngredient);
             }
         }
 
@@ -367,16 +365,14 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
             //Verification des tag affiché dans le dom, et ne pas les afficher dans le sous menu
             if (allTag.length != 0) {
                 Array.from(allTag).forEach((allTag, index) => {
-                    if (valeurStockéModifié == allTag.innerText.toLocaleLowerCase()) {
+                    if (valeurStockéModifié == allTag.innerText.toLowerCase()) {
                         optionPasAfficher = true;
                     }
                 });
             }
 
             if (optionPasAfficher == false) {
-                // ajoutIngredientMenu(valeurStockéDéfaut,menu,tagIngredient);
                 ajoutItemMenu(valeurStockéDéfaut, menu, tagIngredient, typeMenu);
-
             }
         }
     }
@@ -387,7 +383,7 @@ const formPrimaire = document.getElementById('formPrimaire');
 const recherchePrimaire = document.querySelector('.recherche-primaire');
 recherchePrimaire.addEventListener('keyup', () => {
     if (formPrimaire.firstSearch.value.length >= 2) {
-        valeurTapéGlobal = formPrimaire.firstSearch.value;
+        valeurTapéGlobal = formPrimaire.firstSearch.value.trim();
         search();
     }
 });
@@ -395,7 +391,7 @@ recherchePrimaire.addEventListener('keyup', () => {
 const formIngredient = document.getElementById('formIngredient');
 const rechercheIngredient = document.querySelector('.recherche-ingredient');
 rechercheIngredient.addEventListener('keyup', () => {
-    valeurTapéIngredient = formIngredient.IngredientSearch.value;
+    valeurTapéIngredient = formIngredient.IngredientSearch.value.trim();
 
     const MesIngredients = document.querySelectorAll('.pTitreIngredient');
 
@@ -432,7 +428,7 @@ const formAppareil = document.getElementById('formAppareil');
 const rechercheAppareil = document.querySelector('.recherche-appareil');
 rechercheAppareil.addEventListener('keyup', () => {
 
-    valeurTapéAppareil = formAppareil.AppareilSearch.value;
+    valeurTapéAppareil = formAppareil.AppareilSearch.value.trim();
 
     let appareils = [];
 
@@ -468,7 +464,7 @@ const formUstensile = document.getElementById('formUstensile');
 const rechercheUstensile = document.querySelector('.recherche-ustensile');
 rechercheUstensile.addEventListener('keyup', () => {
 
-    valeurTapéUstensile = formUstensile.UstensileSearch.value;
+    valeurTapéUstensile = formUstensile.UstensileSearch.value.trim();
 
     let ustensiles = [];
 
@@ -547,5 +543,4 @@ menuUstensilesCocheOuverte.addEventListener('click', () => {
 });
 
 
-valeurTapéGlobal = null;
 search();
