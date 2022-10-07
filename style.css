@@ -2,8 +2,6 @@
 
 html {
     box-sizing: border-box;
-    /* margin-left: 80px;
-    margin-right: 80px; */
     margin-left: 88px;
     margin-right: 88px;
     
@@ -44,9 +42,6 @@ h2{
 
 .image_logo {
     margin-top: 38px;
-    /* margin-bottom: 13px; */
-    /* max-width: 160px; */
-    /* height: auto; */
     width: 45px;
 }
 
@@ -129,8 +124,6 @@ h2{
     border-radius: 5px;
     color: white;
     max-width: 54%;
-    /* width: 17.99%; */
-    /* width: 13.7%; */
     height: max-content;
 }
 
@@ -152,23 +145,10 @@ i.fa-solid.fa-angle-down {
     border-radius: 5px;
     color: white;
     max-width: 54%;
-    /* width: 17.99%; */
-    /* width: 13.7%; */
     height: max-content;
 }
 
 #selectorUstensiles {
-    /* margin-top: 20px;
-    margin-left: 12.5px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #ED6454;
-    border-radius: 5px;
-    color: white; */
-    /* max-width: 54%; */
-    /* width: 17.99%; */
-    /* width: 13.7%; */
-
     margin-top: 20px;
     margin-left: 12.5px;
     padding-top: 20px;
@@ -177,22 +157,16 @@ i.fa-solid.fa-angle-down {
     border-radius: 5px;
     color: white;
     max-width: 54%;
-    /* width: 17.99%; */
-    /* width: 13.7%; */
     height: max-content;
 }
 
 #menuIngredients,#menuAppareils,#menuUstensiles {
     display: flex;
-    /* flex-direction: column; */
     flex-wrap: wrap;
-    /* height: 20vw; */
-    /* overflow-x: scroll; */
     list-style: none;
     justify-content: space-between;
     padding-left: 15px;
     padding-right: 15px;
-    /* justify-items: unset; */
     margin-bottom: 0px;
 }
 
@@ -202,7 +176,6 @@ i.fa-solid.fa-angle-down {
     justify-content: space-between;
     padding-left: 12px;
     padding-right: 16px;
-    /* width: 10%; */
     font-size: 17.5px;
 }
 
@@ -215,7 +188,6 @@ i.fa-solid.fa-angle-down {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    /* margin-top: 70px; */
     margin-top: 120px;
 }
 
@@ -240,8 +212,6 @@ i.fa-solid.fa-angle-down {
 
 .divIngredient{
     display: flex;
-    /* margin-top: 15px; */
-    /* width: 50%; */
     flex-wrap: wrap;
 }
 
@@ -254,7 +224,6 @@ i.fa-solid.fa-angle-down {
     width: 50%;
     font-size: 11px;
     padding-right: 10px;
-    /* flex-wrap: wrap; */
 }
 
 .divDescription{
@@ -273,7 +242,6 @@ i.fa-solid.fa-angle-down {
 }
 
 .tag{
-    /* display: none; */
     display: flex;
     margin-top: 31px;
 }
@@ -350,7 +318,6 @@ li option {
 
 .option{
     width: 26%;
-    /* height: 2.5vw; */
     margin-bottom: 15px;
     cursor: pointer;
 }

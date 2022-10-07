@@ -11,6 +11,7 @@ let messageAucuneRecette = false;
 let tableauRecette = recipes;
 let resultatRequette;
 
+
 function search() {
 
     if (valeurTapéGlobal != null) {

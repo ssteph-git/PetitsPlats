@@ -1,5 +1,5 @@
 const recipes = [
-//  [
+
     {
         "id": 1,
         "name" : "Limonade de Coco",
