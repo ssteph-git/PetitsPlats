@@ -383,7 +383,7 @@ function affichageDuSousMenu(valeurStockéDéfaut, menu, tagIngredient, valeurEx
 const formPrimaire = document.getElementById('formPrimaire');
 const recherchePrimaire = document.querySelector('.recherche-primaire');
 recherchePrimaire.addEventListener('keyup', () => {
-    if (formPrimaire.firstSearch.value.length >= 2) {
+    if (formPrimaire.firstSearch.value.length > 2) {
         valeurTapéGlobal = formPrimaire.firstSearch.value.trim();
         search();
     }
